@@ -13,7 +13,7 @@ class User {
           const username = res.data.user
           if(Token.isValid(access_token)){
               console.log(access_token)
-             // AppStorage.store(username,access_token)
+             //AppStorage.store(username,access_token)
           }
       }
 
