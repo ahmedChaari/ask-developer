@@ -14,6 +14,7 @@ import User from './Helpers/User'
 window.User = User
 
 
+
 Vue.component('app-home', require('./components/AppHome.vue').default);
 import router from './Router/router'
 

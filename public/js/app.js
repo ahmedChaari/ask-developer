@@ -95448,8 +95448,8 @@ var AppStorage = /*#__PURE__*/function () {
   }
 
   _createClass(AppStorage, [{
-    key: "storageToken",
-    value: function storageToken(token) {
+    key: "storeToken",
+    value: function storeToken(token) {
       localStorage.setItem('token', token);
     }
   }, {
@@ -95460,7 +95460,7 @@ var AppStorage = /*#__PURE__*/function () {
   }, {
     key: "store",
     value: function store(user, token) {
-      this.storageToken(token);
+      this.storeToken(token);
       this.storeUser(user);
     }
   }, {
@@ -95522,7 +95522,7 @@ var Token = /*#__PURE__*/function () {
   }, {
     key: "payload",
     value: function payload(token) {
-      var payload = token.sqlit('.')[1];
+      var payload = token.split('.')[1];
       return this.decode(payload);
     }
   }, {
@@ -95582,7 +95582,43 @@ var User = /*#__PURE__*/function () {
       var username = res.data.user;
 
       if (_Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(access_token)) {
-        console.log(access_token); // AppStorage.store(username,access_token)
+        _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].store(username, access_token);
+      }
+    }
+  }, {
+    key: "hastoken",
+    value: function hastoken() {
+      var storedToken = _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].getToken();
+
+      if (storedToken) {
+        return _Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(storedToken) ? true : false;
+      }
+
+      return false;
+    }
+  }, {
+    key: "loggedIn",
+    value: function loggedIn() {
+      return this.hastoken();
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].clear();
+    }
+  }, {
+    key: "name",
+    value: function name() {
+      if (this.loggedIn()) {
+        return _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].getUser();
+      }
+    }
+  }, {
+    key: "id",
+    value: function id() {
+      if (this.loggedIn()) {
+        var payload = _Token__WEBPACK_IMPORTED_MODULE_0__["default"].payload(_AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].getToken());
+        return payload.sub;
       }
     }
   }]);
