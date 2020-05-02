@@ -2,10 +2,8 @@
  <v-container>
     <v-form @submit.prevent="login"
     ref="form"
-   
     lazy-validation
   >
-   
     <v-text-field
       v-model="form.email"
       label="E-mail"
@@ -28,6 +26,11 @@
     >
       Login
     </v-btn>
+    <router-link to="/signup">
+          <v-btn class="ma-2" color="indigo" dark>
+              SignUp
+          </v-btn>
+    </router-link>
    </v-form>
  </v-container>
 </template>
@@ -44,6 +47,7 @@ export default {
   methods:{
     login(){
       User.login(this.form)
+      this.$router.push({name:'forum'})
     }
   }
 

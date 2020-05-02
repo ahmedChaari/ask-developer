@@ -12,7 +12,7 @@
           <v-toolbar-title class="mr-8">Title</v-toolbar-title>
         </router-link>
         <div class="my-2">
-          <router-link to=""><v-btn text small color="primary">Blog Forum</v-btn></router-link>
+          <router-link to="/forum"><v-btn text small color="primary">Blog Forum</v-btn></router-link>
         </div>
         <div class="my-2">
           <router-link to=""><v-btn text small color="primary">Category</v-btn></router-link>
