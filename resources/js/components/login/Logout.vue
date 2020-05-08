@@ -1,15 +1,12 @@
 <template>
-  <v-container>
-    
-  </v-container>
+  
 </template>
 
 <script>
 export default {
-
+    created(){
+        EventBus.$emit('logout');
+    }
 }
 </script>
 
-<style>
-
-</style>

@@ -7,38 +7,14 @@
     tile
     >
      <v-toolbar dense>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <router-link to="/"> 
-          <v-toolbar-title class="mr-8">Title</v-toolbar-title>
+        <router-link
+                :key="index"
+                v-for="(item, index) in items"
+                :to="item.to"
+        >
+          <v-btn v-if="item.show">{{ item.title }}</v-btn>
         </router-link>
-        <div class="my-2">
-          <router-link to="/forum"><v-btn text small color="primary">Blog Forum</v-btn></router-link>
-        </div>
-        <div class="my-2">
-          <router-link to=""><v-btn text small color="primary">Category</v-btn></router-link>
-        </div>
-        <div class="my-2">
-          <router-link to=""><v-btn text small color="primary">Ask Question</v-btn></router-link>
-        </div>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-  
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-password</v-icon>
-        </v-btn>
-  
-        <router-link to="/login">
-          <v-btn class="ma-2" color="indigo" dark>
-              login
-          </v-btn>
-        </router-link>
-
-      </v-toolbar>
+    </v-toolbar>
     </v-card>
 
 
@@ -47,6 +23,24 @@
 
 <script>
 export default {
+   
+data(){
+  
+    return {
+        items:[
+            {title : 'Forum',to:'/forum',show:true},
+            {title : 'Ask Question',to:'/ask',show: User.loggedIn()},
+            {title : 'Login',to:'/login',show:!User.loggedIn()},
+            {title : 'Category',to:'/category',show: User.loggedIn()},
+            {title : 'Logout',to:'/logout',show: User.loggedIn()},
+        ]
+    }
+  },
+  created(){
+    EventBus.$on('logout',() => {
+      User.logout()
+    })
+  }
 
 }
 </script>

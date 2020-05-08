@@ -29,7 +29,7 @@ class AuthController extends Controller
    {
        $credentials = request(['email', 'password']);
 
-       if (! $token = auth()->claims(['nam' => 'barrrrr'])->attempt($credentials)) {
+       if (! $token = auth()->claims(['name' => 'barrrrr'])->attempt($credentials)) {
       
            return response()->json(['error' => 'Unauthorized'], 401);
        }
