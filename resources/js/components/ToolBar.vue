@@ -6,13 +6,15 @@
     height="60px"
     tile
     >
+    
      <v-toolbar dense>
+         <v-spacer></v-spacer>
         <router-link
                 :key="index"
                 v-for="(item, index) in items"
                 :to="item.to"
         >
-          <v-btn v-if="item.show">{{ item.title }}</v-btn>
+          <v-card-text v-if="item.show">{{ item.title }}</v-card-text>
         </router-link>
     </v-toolbar>
     </v-card>

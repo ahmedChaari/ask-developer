@@ -2,9 +2,19 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-// src/plugins/vuetify.js
 
 import Vue from 'vue'
+
+// plugins simplemde
+
+import VueSimplemde from 'vue-simplemde'
+import 'simplemde/dist/simplemde.min.css'
+
+Vue.component('vue-simplemde', VueSimplemde)
+import md from 'marked'
+window.md = md
+// src/plugins/vuetify.js
+
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 

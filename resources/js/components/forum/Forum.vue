@@ -1,12 +1,35 @@
 <template>
-  <v-container>
-    
+  <v-container fluid grid-list-md>
+    <v-layout row wrap>
+      <v-flex xs8>
+        <question
+        :key="question.path"
+        v-for="question in questions"
+        :data=question
+        >
+        </question>
+      </v-flex>
+      SidBare Category
+    </v-layout>
   </v-container>
 </template>
 
 <script>
-export default {
+import question from './Question'
 
+export default {
+  data(){
+    return {
+      questions:{      }
+    }
+  },
+components:{question},
+
+    created(){
+        axios.get('/api/question')
+        .then(res => this.questions = res.data.data)
+        .catch(error => console.log(error.response.data))
+    }
 }
 </script>
 
