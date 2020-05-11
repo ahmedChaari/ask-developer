@@ -47,6 +47,7 @@ export default {
             .then(res => this.$router.push('/forum'))
             .catch(error => console.log(error.response.data))
         },
+        //modif for just push the forum
         edit(){
          
                 EventBus.$emit('startEditing')
