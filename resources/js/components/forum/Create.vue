@@ -22,9 +22,7 @@
                     menu-props="auto"
                     label="Category"  
                 ></v-select>
-
                 <vue-simplemde v-model="form.body" />
-
                 <v-btn
                 color="warning"
                 class="mr-4"
@@ -32,7 +30,7 @@
                 >
                 Create
                 </v-btn>
-
+              
         </v-form>
         </v-container>
        </v-flex>

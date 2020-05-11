@@ -4,7 +4,7 @@
 
     <v-card-subtitle 
     color="orange"
-    class="headline pb-0">
+    class="headline mt-2">
     <router-link :to="data.path">
         {{ data.title}}
     </router-link>
@@ -13,9 +13,7 @@
         <v-card-text class="text--primary">
             <div class="grey--text"><span class="user-said">{{ data.user }} </span> - {{ data.created_at}}</div> 
         </v-card-text>
-        <v-card-text>
-            {{ data.body}}
-        </v-card-text>
+        <v-card-text v-html="body"></v-card-text>
     <v-card-actions>
       <v-btn
         color="orange"
@@ -36,8 +34,14 @@
 
 <script>
 export default {
-props:['data']
+props:['data'],
+computed:{
+        body(){
+            return md.parse(this.data.body)
+        }
+    }
 }
+
 </script>
 
 <style>

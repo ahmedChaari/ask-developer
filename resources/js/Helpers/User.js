@@ -44,6 +44,12 @@ class User {
             return payload.sub
         }
     }
+    own(id){
+        return this.id() == id
+    }
+    admin(){
+        return this.id() == 5
+    }
 }
 
 export default User = new User();
