@@ -5,7 +5,7 @@
         <question
         :key="question.path"
         v-for="question in questions"
-        :data=question
+        :data="question"
         >
         </question>
       </v-flex>
@@ -20,19 +20,17 @@
 import question from './Question'
 import AppSidebar from './AppSidebar'
 export default {
+  components:{question,AppSidebar},
   data(){
     return {
-      questions:{      }
+      questions:{}
     }
   },
-  
-components:{question,AppSidebar},
-
-    created(){
-        axios.get('/api/question')
-        .then(res => this.questions = res.data.data)
-        .catch(error => console.log(error.response.data))
-    }
+  created(){
+      axios.get('/api/question')
+      .then(res => this.questions = res.data.data)
+      .catch(error => console.log(error.response.data))
+  }
 }
 </script>
 

@@ -49,9 +49,7 @@ export default {
         },
         //modif for just push the forum
         edit(){
-         
-                EventBus.$emit('startEditing')
-                
+                EventBus.$emit('startEditing') 
         }
     }
 }

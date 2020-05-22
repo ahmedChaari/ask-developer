@@ -4,11 +4,15 @@
     color="grey lighten-4"
     flat
     height="60px"
-    tile
-    >
-    
+    tile>
      <v-toolbar dense>
+      <router-link to="/forum">
+        <v-btn small color="indigo">
+           <v-icon  color="white">mdi-home</v-icon>
+        </v-btn>
+      </router-link>
          <v-spacer></v-spacer>
+         <app-notification></app-notification>
         <router-link
                 :key="index"
                 v-for="(item, index) in items"
@@ -24,8 +28,10 @@
 </template>
 
 <script>
+
+import AppNotification from './AppNotification'
 export default {
-   
+   components:{AppNotification},
 data(){
   
     return {
