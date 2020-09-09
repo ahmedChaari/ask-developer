@@ -1,42 +1,47 @@
 <template>
-<v-container fluid grid-list-md>
-    <v-layout row wrap>
-      <v-flex xs8>
-          <v-container>
-        <v-form @submit.prevent="create"
-                ref="form"
-                lazy-validation
-                >
-                <v-text-field
-                v-model="form.title"
-                label="Title"
-                type="text"
-                required
-                ></v-text-field>
-
-                <v-select
-                    v-model="form.category_id"
-                    :items="categories"
-                    item-text="name"
-                    item-value="id"
-                    menu-props="auto"
-                    label="Category"  
-                ></v-select>
-                <vue-simplemde v-model="form.body" />
-                <v-btn
-                color="warning"
-                class="mr-4"
-                type="submit"
-                >
-                Create
+<v-container >
+<v-card class="form_quest-creat">
+      
+          <div >
+              <v-form @submit.prevent="create"
+                  ref="form"
+                  lazy-validation
+                 
+                  >
+                   <span class="red--text" v-if="errors.title">{{errors.title[0]}}</span>
+                  <v-text-field
+                  v-model="form.title"
+                  label="Title"
+                  type="text"
+                  required
+                  ></v-text-field>
+                   <span class="red--text" v-if="errors.category_id">{{errors.category_id[0]}}</span>
+                  <v-select
+                      v-model="form.category_id"
+                      :items="categories"
+                      item-text="name"
+                      item-value="id"
+                      menu-props="auto"
+                      label="Category"  
+                  ></v-select>
+                 
+                  <span class="red--text" v-if="errors.body">{{errors.body[0]}}</span>
+                  <vue-simplemde v-model="form.body" />
+                  <v-btn class="ma-2" 
+                            color="#616161"
+                            dark small type="submit"
+                            :disabled="disabled"
+                         >Create
+                        <v-icon dark right small>mdi-checkbox-marked-circle</v-icon>
                 </v-btn>
-              
-        </v-form>
-        </v-container>
-       </v-flex>
-         <span style="color:green">SidBare Category</span> 
-    </v-layout>
-  </v-container>
+                 
+                
+          </v-form>
+          </div>
+          
+   
+  </v-card>
+   </v-container>
 </template>
 
 <script>
@@ -60,13 +65,21 @@ export default {
         create(){
                 axios.post('/api/question',this.form)
                 .then(res => this.$router.push(res.data.path))
-                .catch(error => this.errors = error.response.data.error)
+                .catch(error => this.errors = error.response.data.errors)
         }
-    }
+    },
+    computed:{
+        disabled(){
+           return !(this.form.title && this.form.body && this.form.category_id)
+        }
+    },
+    
 }
 
 </script>
 
 <style>
-
+.form_quest-creat{
+       padding: 4px 10px 20px 10px;
+}
 </style>

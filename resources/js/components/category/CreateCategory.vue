@@ -1,6 +1,9 @@
 <template>
  <v-container>
-     <v-card class="card">
+     <v-alert v-if="errors" type="error" :value="true">
+         you need to add category
+     </v-alert>
+     <v-card class="form_categ-creat">
         <v-form @submit.prevent="submit">
             <v-text-field
                     v-model="form.name"
@@ -55,7 +58,8 @@ export default {
                 name:null
             },
             categories:{},
-            editSlug:null
+            editSlug:null,
+            errors:null
         }
     },
     
@@ -65,7 +69,7 @@ export default {
          }
         axios.get('/api/category')
         .then(res => this.categories = res.data.data)
-       
+         
     },
     methods:{
         submit(){
@@ -84,6 +88,7 @@ export default {
                     this.categories.unshift(res.data)
                     this.form.name = null
             })
+            .catch(error=> this.errors = error.response.data.errors)
         },
 
 
@@ -98,11 +103,19 @@ export default {
              this.editSlug = this.categories[index].slug 
              this.categories.splice(index,1)
             }
-    }
+    },
+    computed:{
+        disabled(){
+            return !this.form.name
+        }
+    },
         
 }
 </script>
 
 <style>
+.form_categ-creat{
+   padding: 4px 0px 20px 14px;
 
+}
 </style>

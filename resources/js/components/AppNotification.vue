@@ -1,26 +1,29 @@
 <template>
- 
-   <div class="text-center">
+  <div class="text-center">
     <v-menu offset-y>
-      <template v-slot:activator="{ on }">
-         <v-btn text v-on="on">
-            <v-icon color="red" >mdi-message-text</v-icon>8
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon v-bind="attrs"
+          v-on="on">
+            <v-icon :color="color" >mdi-message-text</v-icon>{{unreadCount}}
         </v-btn>
       </template>
       <v-list>
         <v-list-item v-for="item in unread" :key="item.id">
-          <v-list-item-title>{{item.data.question}}</v-list-item-title>
+          <router-link :to="item.path">
+              <v-list-item-title @click="readIt(item.read)">{{item.question}}</v-list-item-title>
+          </router-link>
         </v-list-item>
-        
         <v-divider></v-divider>
-
-         <v-list-item v-for="item1 in read" :key="item1.id">
-          <v-list-item-title>{{item1.data.question}}</v-list-item-title>
+        <v-list-item v-for="item in read" :key="item.id">
+          <v-list-item-title>
+              {{ item.question }}
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -28,27 +31,52 @@ export default {
         return {
             read : {},
             unread : {},
-            unreadCount : 0
+            unreadCount : 0,
+            sound: "http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
         }
     },
     created(){
         if(User.loggedIn()){
             this.getNotifications()
         }
+
+            Echo.private('App.User.' + User.id())
+              .notification((notification) => {
+                  this.playSound()
+                  this.unread.unshift(notification)
+                  this.unreadCount++
+              });
+
+
     },
     methods:{
+
+      playSound(){
+        let alert = new Audio(this.sound)
+        alert.play()
+      },
+      
         getNotifications(){
             axios.post('/api/notifications')
             .then(res => {
-                this.read = res.data.read
-                this.unread = res.data.unread
-               
+              this.read = res.data.read
+              this.unread = res.data.unread
+              this.unreadCount = res.data.unread.length
             })
+            .catch(error => Exception.handle(error))
+        },
+        readIt(notifications){
+          axios.post('/api/markAsRead', {id:Notification.id})
+          .then(res => {
+            this.unread.splice(notification,1)
+            this.read.push(notification)
+            this.unreadCount--
+          })
         }
     },
      computed:{
         color(){
-            //return this.unreadCount < 0 ? 'red' : 'red lighten-4'
+            return this.unreadCount < 0 ? 'red' : 'red lighten-4'
         }
     }
 }

@@ -1,26 +1,22 @@
 <template>
-  <v-container fluid grid-list-md>
-    <v-layout row wrap>
-      <v-flex xs8>
+  <v-container>
+   
         <question
-        :key="question.path"
-        v-for="question in questions"
-        :data="question"
+          :key="question.path"
+          v-for="question in questions"
+          :data="question"
         >
         </question>
-      </v-flex>
-      <v-flex xs4>
-         <app-sidebar></app-sidebar>
-      </v-flex>
-    </v-layout>
+      
   </v-container>
 </template>
 
 <script>
-import question from './Question'
-import AppSidebar from './AppSidebar'
+import question   from './Question'
+
+
 export default {
-  components:{question,AppSidebar},
+  components:{question},
   data(){
     return {
       questions:{}

@@ -1,10 +1,15 @@
 <template>
-<div class="mt-3">
-     <vue-simplemde v-model="body" />
-        <v-btn class="ma-2" color="green" dark small @click="submit">
-                    <v-icon dark >mdi-check</v-icon>
-        </v-btn>
-</div>
+    <v-card class="mt-3">
+      <v-container>
+        <div>
+            <v-text><h4 class="answer">Your Answer</h4></v-text>
+            <vue-simplemde v-model="body" />
+                <v-btn class="ma-2" color="#616161" dark small  @click="submit">Save
+                        <v-icon dark right small>mdi-checkbox-marked-circle</v-icon>
+                </v-btn>
+        </div>
+      </v-container>
+    </v-card>
 </template>
 
 <script>
@@ -29,5 +34,7 @@ export default {
 </script>
 
 <style>
-
+.answer{
+        margin: 15px 40px;
+}
 </style>

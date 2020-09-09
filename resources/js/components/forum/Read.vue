@@ -1,32 +1,37 @@
 <template>
- <div  v-if="question">
-      <edit-question 
-      :data = question
-      v-if="editing">    
-      </edit-question>
-        <show-question v-else
+  <v-container>
+        <div  v-if="question">
+            <edit-question 
             :data = question
-             >
-       </show-question>
-     <v-container>
-         <replies 
-            :question="question">
-         </replies>   
-         <new-reply 
-            :questionSlug="question.slug">
-         </new-reply>    
-     </v-container> 
- </div>
+            v-if="editing">    
+            </edit-question>
+            <show-question v-else
+                :data = question
+                >
+            </show-question>
+            <replies 
+                :question="question">
+            </replies>   
+            <new-reply v-if="loggedIn" :questionSlug="question.slug"></new-reply>  
+                <div class="mt-6" v-else >
+                     <v-btn text color="blue">
+                        <router-link to="/login" >login to Reply .......</router-link>
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </v-btn>
+                </div>
+        </div>
+  </v-container>
 </template>
 
 <script>
+import AppSidebar   from './AppSidebar'
 import ShowQuestion from './ShowQuestion'
 import EditQuestion from './EditQuestion'
 import Replies      from '../reply/Replies'
 import NewReply     from '../reply/NewReply'
 
 export default {
-    components:{ShowQuestion,EditQuestion,Replies,NewReply},
+    components:{ShowQuestion,EditQuestion,Replies,NewReply,AppSidebar},
 data(){
     return {
         question:null,
@@ -36,6 +41,11 @@ data(){
 created(){
        this.listen()
        this.getQuestion()
+       },
+       computed:{
+            loggedIn(){
+                return User.loggedIn()
+            }
        },
     methods:{
         listen(){

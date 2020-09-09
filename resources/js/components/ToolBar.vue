@@ -1,18 +1,17 @@
 <template>
 
-  <v-card
+  <v-card class="card"
     color="grey lighten-4"
     flat
-    height="60px"
     tile>
      <v-toolbar dense>
-      <router-link to="/forum">
+      <router-link to="/">
         <v-btn small color="indigo">
            <v-icon  color="white">mdi-home</v-icon>
         </v-btn>
       </router-link>
          <v-spacer></v-spacer>
-         <app-notification></app-notification>
+         <app-notification v-if="loggedIn"></app-notification>
         <router-link
                 :key="index"
                 v-for="(item, index) in items"
@@ -35,6 +34,7 @@ export default {
 data(){
   
     return {
+      loggedIn: User.loggedIn(),
         items:[
             {title : 'Forum',to:'/forum',show:true},
             {title : 'Ask Question',to:'/ask',show: User.loggedIn()},
@@ -54,5 +54,13 @@ data(){
 </script>
 
 <style>
+.card{
+  background-color: whitesmoke;
+  position: fixed;
+    height: auto;
+    width: -webkit-fill-available;
+    z-index: 12;
 
+
+}
 </style>

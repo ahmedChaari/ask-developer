@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter) 
 
+import AskHome  from '../components/askHome'
 import Login  from '../components/login/Login'
 import Signup from '../components/login/Signup'
 import Forum  from '../components/forum/Forum'
@@ -13,6 +14,7 @@ import CreateCategory   from '../components/category/CreateCategory'
 
 
 const routes = [
+    { path: '/' , component: AskHome  },
     { path: '/login' , component: Login  },
     { path: '/signup', component: Signup },
     { path: '/Logout', component: Logout },
